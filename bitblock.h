@@ -1,11 +1,11 @@
-#ifndef BITBLOCK_H
-#define BITBLOCK_H
+#ifndef FRESH_H
+#define FRESH_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void bitblock_hash(const char* input, char* output);
+void fresh_hash(const char* input, char* output);
 
 #ifdef __cplusplus
 }
