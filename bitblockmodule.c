@@ -1,8 +1,8 @@
 #include <Python.h>
 
-#include "bitblock.h"
+#include "fresh.h"
 
-static PyObject *bitblock_getpowhash(PyObject *self, PyObject *args)
+static PyObject *fresh_getpowhash(PyObject *self, PyObject *args)
 {
     char *output;
     PyObject *value;
@@ -17,9 +17,9 @@ static PyObject *bitblock_getpowhash(PyObject *self, PyObject *args)
     output = PyMem_Malloc(32);
 
 #if PY_MAJOR_VERSION >= 3
-    bitblock_hash((char *)PyBytes_AsString((PyObject*) input), output);
+    fresh_hash((char *)PyBytes_AsString((PyObject*) input), output);
 #else
-    bitblock_hash((char *)PyString_AsString((PyObject*) input), output);
+    fresh_hash((char *)PyString_AsString((PyObject*) input), output);
 #endif
     Py_DECREF(input);
 #if PY_MAJOR_VERSION >= 3
@@ -31,27 +31,27 @@ static PyObject *bitblock_getpowhash(PyObject *self, PyObject *args)
     return value;
 }
 
-static PyMethodDef bitblockMethods[] = {
-    { "getPoWHash", bitblock_getpowhash, METH_VARARGS, "Returns the proof of work hash using x13 hash" },
+static PyMethodDef freshMethods[] = {
+    { "getPoWHash", fresh_getpowhash, METH_VARARGS, "Returns the proof of work hash using FRESH hash" },
     { NULL, NULL, 0, NULL }
 };
 
 #if PY_MAJOR_VERSION >= 3
-static struct PyModuleDef bitblockModule = {
+static struct PyModuleDef freshModule = {
     PyModuleDef_HEAD_INIT,
-    "bitblock_hash",
+    "fresh_hash",
     "...",
     -1,
-    bitblockMethods
+    freshMethods
 };
 
-PyMODINIT_FUNC PyInit_bitblock_hash(void) {
-    return PyModule_Create(&bitblockModule);
+PyMODINIT_FUNC PyInit_fresh_hash(void) {
+    return PyModule_Create(&freshModule);
 }
 
 #else
 
-PyMODINIT_FUNC initbitblock_hash(void) {
-    (void) Py_InitModule("bitblock_hash", bitblockMethods);
+PyMODINIT_FUNC initfresh_hash(void) {
+    (void) Py_InitModule("fresh_hash", freshMethods);
 }
 #endif
